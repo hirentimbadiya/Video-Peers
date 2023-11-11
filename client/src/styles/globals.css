@@ -14,17 +14,29 @@ input{
     margin-bottom: 0.3rem;
 }
 
-.joinButton{
-    color: #fff;
-    background-color: #7c3aed;
+button{
     font-weight: 500;
     border-radius: 1rem;
     font-size: 0.875rem;
     padding:  0.5rem 1rem;
     text-align: center;
     margin-bottom: 2.5rem;
+}
 
+.joinButton{
+    color: #fff;
+    background-color: #7c3aed;
     &:hover{
         background-color: #6a28b7;
+    }
+}
+
+
+.callButton{
+    color: #fff;
+    background-color: limegreen;
+    transition: background-color 250ms ease-in-out;
+    &:hover{
+        background-color: forestgreen;
     }
 }
