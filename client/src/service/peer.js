@@ -34,6 +34,16 @@ class PeerService {
             return offer;
         }
     }
+
+    toggleAudio = () => {
+        const audioTracks = this.peer.getSenders().find(sender => sender.track.kind === 'audio').track;
+        audioTracks.enabled = !audioTracks.enabled;
+    };
+
+    toggleVideo = () => {
+        const videoTracks = this.peer.getSenders().find(sender => sender.track.kind === 'video').track;
+        videoTracks.enabled = !videoTracks.enabled;
+    };
 }
 
 export default new PeerService();

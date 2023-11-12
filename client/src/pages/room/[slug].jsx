@@ -6,17 +6,19 @@ import peer from '@/service/peer';
 const RoomPage = () => {
     const socket = useSocket();
     const [remoteSocketId, setRemoteSocketId] = useState(null);
-    const [myStream, setMyStream] = useState(null)
-    const [remoteStream, setRemoteStream] = useState(null)
+    const [myStream, setMyStream] = useState(null);
+    const [remoteStream, setRemoteStream] = useState(null);
+    const [isAudioMute, setIsAudioMute] = useState(false);
+    const [isVideoOnHold, setIsVideoOnHold] = useState(false);
 
     const handleUserJoined = useCallback(({ email, id }) => {
-        console.log(`Email ${email} joined the room!`);
+        //! console.log(`Email ${email} joined the room!`);
         setRemoteSocketId(id);
     }, []);
 
     const handleIncomingCall = useCallback(async ({ from, offer }) => {
         setRemoteSocketId(from);
-        // console.log(`incoming call from ${from} with offer ${offer}`);
+        //! console.log(`incoming call from ${from} with offer ${offer}`);
         const stream = await navigator.mediaDevices.getUserMedia({
             audio: true,
             video: true
@@ -35,7 +37,7 @@ const RoomPage = () => {
 
     const handleCallAccepted = useCallback(({ from, ans }) => {
         peer.setLocalDescription(ans);
-        // console.log("Call Accepted");
+        //! console.log("Call Accepted");
 
         sendStreams();
     }, [sendStreams]);
@@ -87,7 +89,8 @@ const RoomPage = () => {
             socket.off("peer:nego:final", handleNegoFinal);
         };
     },
-        [socket,
+        [
+            socket,
             handleUserJoined,
             handleIncomingCall,
             handleCallAccepted,
@@ -101,19 +104,40 @@ const RoomPage = () => {
             video: true
         });
 
+        if (isAudioMute) {
+            const audioTracks = stream.getAudioTracks();
+            audioTracks.forEach(track => track.enabled = false);
+        }
+
+        const videoTracks = stream.getVideoTracks();
+        if (isVideoOnHold) {
+            videoTracks.forEach(track => track.enabled = false);
+        }
+
         //! create offer
         const offer = await peer.getOffer();
         //* send offer to remote user
         socket.emit("user:call", { to: remoteSocketId, offer })
         // set my stream
         setMyStream(stream);
-    }, [remoteSocketId, socket]);
+    }, [remoteSocketId, socket, isAudioMute, isVideoOnHold]);
+
+
+    const handleToggleAudio = () => {
+        peer.toggleAudio();
+        setIsAudioMute(!isAudioMute);
+    };
+
+    const handleToggleVideo = () => {
+        peer.toggleVideo();
+        setIsVideoOnHold(!isVideoOnHold);
+    }
 
     return (
         <div className='flex flex-col items-center justify-center'>
             <h1 className='font-bold text-7xl md:text-5xl p-3'>RoomPage</h1>
             <h4 className='font-bold text-4xl md:text-xl p-3 mb-4'>{remoteSocketId ? "Connected" : "No One In Room"}</h4>
-            {myStream &&
+            {(myStream || remoteStream) &&
                 <button className='callButton' onClick={sendStreams}>
                     Send Stream
                 </button>
@@ -133,10 +157,16 @@ const RoomPage = () => {
                         <ReactPlayer
                             url={myStream}
                             playing
-                            muted
+                            muted={isAudioMute}
                             height={300}
                             width={500}
                         />
+                        <button className='joinButton' onClick={handleToggleAudio}>
+                            {isAudioMute ? "Unmute" : "Mute"}
+                        </button>
+                        <button className='joinButton' onClick={handleToggleVideo}>
+                            {isVideoOnHold ? "Resume Video" : "Hold Video"}
+                        </button>
                     </div>
                 }
                 {
