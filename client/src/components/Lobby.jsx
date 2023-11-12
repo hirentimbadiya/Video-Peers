@@ -28,9 +28,9 @@ const LobbyScreen = () => {
     }, [socket, handleJoinRoom]);
 
     return (
-        <div className='flex flex-col items-center justify-center'>
-            <h1 className=' font-semibold mb-5 mt-5 '>Lobby</h1>
-            <div>
+        <div className='flex flex-col items-center justify-center h-screen bg-gray-100'>
+            <h1 className='text-3xl font-semibold mb-5 mt-5 '>Lobby</h1>
+            <div className='bg-white p-6 rounded shadow-md'>
                 <form className='flex flex-col items-center justify-center'
                     onSubmit={handleSubmitForm}
                 >
@@ -52,7 +52,7 @@ const LobbyScreen = () => {
                         onChange={(e) => setRoom(e.target.value)}
                     />
                     <br />
-                    <button className='joinButton'>
+                    <button  className='bg-blue-500 hover:bg-blue-600'>
                         Join
                     </button>
                 </form>

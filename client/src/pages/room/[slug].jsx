@@ -114,6 +114,10 @@ const RoomPage = () => {
                 setRemoteSocketId(null);
             }
         });
+
+        return () => {
+            socket.off("call:end");
+        }
     }, [remoteSocketId, myStream, socket]);
 
     //* for disappearing call button
@@ -123,6 +127,10 @@ const RoomPage = () => {
                 setCallButton(false);
             }
         });
+
+        return () => {
+            socket.off("call:initiated");
+        }
     }, [socket, remoteSocketId]);
 
 
@@ -149,9 +157,10 @@ const RoomPage = () => {
         // set my stream
         setMyStream(stream);
 
-        // hide the call button
+        //* hide the call button
         setCallButton(false);
-        // Inform the remote user to hide their "CALL" button
+
+        //* Inform the remote user to hide their "CALL" button
         socket.emit("call:initiated", { to: remoteSocketId });
     }, [remoteSocketId, socket, isAudioMute, isVideoOnHold, callButton]);
 
@@ -187,12 +196,12 @@ const RoomPage = () => {
             <h1 className='font-bold text-7xl md:text-5xl p-3'>RoomPage</h1>
             <h4 className='font-bold text-4xl md:text-xl p-3 mb-4'>{remoteSocketId ? "Connected" : "No One In Room"}</h4>
             {(myStream || remoteStream) &&
-                <button className='callButton' onClick={sendStreams}>
+                <button className='bg-green-500 hover:bg-green-600' onClick={sendStreams}>
                     Send Stream
                 </button>
             }
             {(remoteSocketId && callButton) &&
-                <button className='callButton' onClick={handleCallUser}>
+                <button className='bg-green-500 hover:bg-green-600' onClick={handleCallUser}>
                     CALL
                 </button>
             }
@@ -229,16 +238,19 @@ const RoomPage = () => {
             </div>
             {myStream &&
                 (
-                    <div className='flex space-x-4 mt-4'>
-                        <button className='joinButton' onClick={handleToggleAudio}>
-                            {isAudioMute ? "Unmute" : "Mute"}
-                        </button>
-                        <button className='joinButton' onClick={handleToggleVideo}>
-                            {isVideoOnHold ? "Resume Video" : "Hold Video"}
-                        </button>
-                        <button className='joinButton' onClick={handleEndCall}>
-                            End Call
-                        </button>
+                    <div className='flex space-x-4 mt-4 h-20 items-center 
+                justify-center w-96 rounded-md bg-gray-100'>
+                        <div className='flex w-[100%] justify-evenly'>
+                            <button className="bg-purple-500 hover:bg-purple-700" onClick={handleToggleAudio}>
+                                {isAudioMute ? "Unmute" : "Mute"}
+                            </button>
+                            <button className="bg-purple-500 hover:bg-purple-700" onClick={handleToggleVideo}>
+                                {isVideoOnHold ? "Resume Video" : "Hold Video"}
+                            </button>
+                            <button className="bg-purple-500 hover:bg-purple-700" onClick={handleEndCall}>
+                                End Call
+                            </button>
+                        </div>
                     </div>
                 )}
         </div>
