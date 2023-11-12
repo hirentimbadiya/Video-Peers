@@ -210,17 +210,6 @@ const RoomPage = () => {
                             height={300}
                             width={500}
                         />
-                        <div className='flex space-x-4 mt-4'>
-                            <button className='joinButton' onClick={handleToggleAudio}>
-                                {isAudioMute ? "Unmute" : "Mute"}
-                            </button>
-                            <button className='joinButton' onClick={handleToggleVideo}>
-                                {isVideoOnHold ? "Resume Video" : "Hold Video"}
-                            </button>
-                            <button className='joinButton' onClick={handleEndCall}>
-                                End Call
-                            </button>
-                        </div>
                     </div>
                 }
                 {
@@ -238,6 +227,20 @@ const RoomPage = () => {
                     </div>
                 }
             </div>
+            {myStream &&
+                (
+                    <div className='flex space-x-4 mt-4'>
+                        <button className='joinButton' onClick={handleToggleAudio}>
+                            {isAudioMute ? "Unmute" : "Mute"}
+                        </button>
+                        <button className='joinButton' onClick={handleToggleVideo}>
+                            {isVideoOnHold ? "Resume Video" : "Hold Video"}
+                        </button>
+                        <button className='joinButton' onClick={handleEndCall}>
+                            End Call
+                        </button>
+                    </div>
+                )}
         </div>
     )
 }
