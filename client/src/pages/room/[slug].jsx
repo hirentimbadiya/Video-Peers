@@ -11,6 +11,7 @@ const RoomPage = () => {
     const [isAudioMute, setIsAudioMute] = useState(false);
     const [isVideoOnHold, setIsVideoOnHold] = useState(false);
     const [callButton, setCallButton] = useState(true);
+    const [isSendButtonVisible, setIsSendButtonVisible] = useState(true);
 
     const handleUserJoined = useCallback(({ email, id }) => {
         //! console.log(`Email ${email} joined the room!`);
@@ -34,6 +35,7 @@ const RoomPage = () => {
         for (const track of myStream.getTracks()) {
             peer.peer.addTrack(track, myStream);
         }
+        setIsSendButtonVisible(false);
     }, [myStream]);
 
     const handleCallAccepted = useCallback(({ from, ans }) => {
@@ -195,7 +197,7 @@ const RoomPage = () => {
         <div className='flex flex-col items-center justify-center h-screen'>
             <h1 className='font-bold text-7xl md:text-5xl p-3'>RoomPage</h1>
             <h4 className='font-bold text-4xl md:text-xl p-3 mb-4'>{remoteSocketId ? "Connected" : "No One In Room"}</h4>
-            {(myStream || remoteStream) &&
+            {(remoteStream && remoteSocketId && isSendButtonVisible) &&
                 <button className='bg-green-500 hover:bg-green-600' onClick={sendStreams}>
                     Send Stream
                 </button>
