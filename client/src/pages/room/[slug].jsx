@@ -2,6 +2,10 @@ import { useSocket } from '@/context/SocketProvider';
 import React, { useCallback, useEffect, useState } from 'react'
 import ReactPlayer from 'react-player';
 import peer from '@/service/peer';
+import CallIcon from '@mui/icons-material/Call';
+import VideoCallIcon from '@mui/icons-material/VideoCall';
+import VideoPlayer from '@/components/VideoPlayer';
+import CallHandleButtons from '@/components/CallHandleButtons';
 
 const RoomPage = () => {
     const socket = useSocket();
@@ -194,66 +198,50 @@ const RoomPage = () => {
     }, [myStream, remoteSocketId, socket]);
 
     return (
-        <div className='flex flex-col items-center justify-center h-screen'>
-            <h1 className='font-bold text-7xl md:text-5xl p-3'>RoomPage</h1>
-            <h4 className='font-bold text-4xl md:text-xl p-3 mb-4'>{remoteSocketId ? "Connected" : "No One In Room"}</h4>
+        <div className='flex flex-col items-center justify-center h-screen overflow-hidden'>
+            <h1 className='absolute top-0 left-0 text-5xl font-semibold
+            text-center font-josefin italic mt-5 ml-5 mmd:text-xl mxs:text-sm'>Video
+                <VideoCallIcon sx={{ fontSize: 50, color: 'rgb(30,220,30)' }} />
+                Peers
+            </h1>
+            <h4 className='font-bold text-xl md:text-2xl mb-4 
+                mmd:text-sm mt-5'>
+                    {remoteSocketId ? "Connected With Remote User!" : "No One In Room"}
+                </h4>
             {(remoteStream && remoteSocketId && isSendButtonVisible) &&
                 <button className='bg-green-500 hover:bg-green-600' onClick={sendStreams}>
                     Send Stream
                 </button>
             }
             {(remoteSocketId && callButton) &&
-                <button className='bg-green-500 hover:bg-green-600' onClick={handleCallUser}>
-                    CALL
-                </button>
+                (
+                    <button className='text-xl bg-green-500 hover:bg-green-600 rounded-3xl animate-pulse'
+                        onClick={handleCallUser}
+                        style={{ display: !remoteStream ? 'block' : 'none' }}>
+                        Call <CallIcon fontSize='medium' />
+                    </button>
+                )
             }
-            <div className="flex flex-row items-center justify-center space-x-4 mt-4">
+            <div className="flex flex-col w-full items-center justify-center mt-4">
+
                 {
                     myStream &&
-                    <div className='flex flex-col items-center justify-center'>
-                        <h1 className='font-bold text-5xl md:text-3xl p-5'>
-                            My Stream
-                        </h1>
-                        <ReactPlayer
-                            url={myStream}
-                            playing
-                            muted={isAudioMute}
-                            height={300}
-                            width={500}
-                        />
-                    </div>
+                    <VideoPlayer stream={myStream} name={"My Stream"} isAudioMute={isAudioMute} />
                 }
                 {
                     remoteStream &&
-                    <div className='flex flex-col items-center justify-center'>
-                        <h1 className='font-bold text-5xl md:text-3xl p-5'>
-                            Remote Stream
-                        </h1>
-                        <ReactPlayer
-                            url={remoteStream}
-                            playing
-                            height={300}
-                            width={500}
-                        />
-                    </div>
+                    <VideoPlayer stream={remoteStream} name={"Remote Stream"} isAudioMute={isAudioMute} />
                 }
             </div>
             {myStream &&
                 (
-                    <div className='flex space-x-4 mt-4 h-20 items-center 
-                justify-center w-96 rounded-md bg-gray-100'>
-                        <div className='flex w-[100%] justify-evenly'>
-                            <button className="bg-purple-500 hover:bg-purple-700" onClick={handleToggleAudio}>
-                                {isAudioMute ? "Unmute" : "Mute"}
-                            </button>
-                            <button className="bg-purple-500 hover:bg-purple-700" onClick={handleToggleVideo}>
-                                {isVideoOnHold ? "Resume Video" : "Hold Video"}
-                            </button>
-                            <button className="bg-purple-500 hover:bg-purple-700" onClick={handleEndCall}>
-                                End Call
-                            </button>
-                        </div>
-                    </div>
+                    <CallHandleButtons
+                        isAudioMute={isAudioMute}
+                        isVideoOnHold={isVideoOnHold}
+                        onToggleAudio={handleToggleAudio}
+                        onToggleVideo={handleToggleVideo}
+                        onEndCall={handleEndCall}
+                    />
                 )}
         </div>
     )

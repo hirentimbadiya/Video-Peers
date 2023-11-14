@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,4 +39,29 @@ button{
         outline: 2px solid transparent;
         outline-offset: 2px;
     }
+}
+
+.callButtons{
+    border-width: 1px;
+    font-weight: 500;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 0.625rem;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+
+    &:hover{
+        color: white;
+    }
+
+    &:focus{
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+    }
+}
+
+video{
+    object-fit: cover;
 }
