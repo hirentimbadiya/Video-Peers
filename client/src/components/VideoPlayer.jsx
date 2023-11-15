@@ -1,19 +1,22 @@
 import ReactPlayer from 'react-player';
 
 const VideoPlayer = ({ stream, isAudioMute, name }) => (
-    <div className={`flex flex-col w-full ${name === "My Stream" ? "flex-1" : "items-center justify-center"}`}>
-        <div className={`${name === "My Stream" ? "absolute top-2 right-3 z-10" : "px-2"}`}>
-            <h1 className='text-xl font-poppins font-semibold md:text-2xl mb-1 text-center'>
+    <div className={`flex flex-col overflow-hidden w-full ${name === "My Stream" ? "flex-1" : "items-center justify-center"}`}>
+        <div className={`${name === "My Stream" ? "flex flex-col items-center justify-center absolute top-2 right-3 z-10" : "px-2"}`}>
+            <h1 className={`text-sm font-poppins font-semibold md:text-xl mb-1 text-center ${name === "My Stream" ? "mt-1" : "mt-4"}`}>
                 {name === 'My Stream' ? 'My Stream' : 'Remote Stream'}
             </h1>
             <div className={`relative rounded-[30px] overflow-hidden
-            ${name === "My Stream" ? "mmd:w-[140px] md:w-[200px] lg:w-[280px]" : "md:w-[600px]"}`}>
+            ${name === "My Stream" ? " mxs:w-[80px] mxs:h-[120px] msm:w-[100px] msm:rounded-md msm:h-[140px] mmd:w-[140px] md:w-[200px] lg:w-[280px]" 
+            : "mxs:h-[450px] mss:h-[500px] mmd:h-[600px] md:w-[800px] md:h-[500px]"}`}
+            >
                 <ReactPlayer
                     url={stream}
                     playing
                     muted={isAudioMute}
-                    height="auto"
-                    width="auto"
+                    height="100%"
+                    width="100%"
+                    style={{ transform: 'scaleX(-1)'}}
                 />
             </div>
         </div>

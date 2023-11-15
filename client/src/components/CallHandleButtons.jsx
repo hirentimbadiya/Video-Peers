@@ -6,20 +6,20 @@ import VideocamOffIcon from '@mui/icons-material/VideocamOff';
 import CallEndIcon from '@mui/icons-material/CallEnd';
 
 const CallHandleButtons = ({ isAudioMute, isVideoOnHold, onToggleAudio, onToggleVideo, onEndCall }) => (
-    <div className='flex space-x-4 mt-4 h-[75px] items-center justify-center w-96 rounded-md'>
-        <div className='flex w-[100%] justify-evenly'>
-            <button className="callButtons text-gray-700 border-gray-700 hover:bg-gray-700
+    <div className='absolute bottom-0 flex w-full space-x-4 h-[80px] items-center justify-center rounded-md'>
+        <div className=' bg-[#2c3e508b] rounded-md flex px-4 py-2 justify-center gap-10'>
+            <button className="callButtons text-white border-white bg-[#2C3E50] hover:bg-white hover:text-[#2C3E50]
         focust:ring-4 focus:ring-gray-300" onClick={onToggleAudio}>
                 {isAudioMute ? <MicOffIcon fontSize="large" /> : <KeyboardVoiceIcon fontSize="large" />}
             </button>
-            <button className="callButtons text-blue-700 border-blue-700 hover:bg-blue-700 
+            <button className="callButtons text-white bg-blue-700 hover:bg-white hover:text-blue-700
         focus:ring-4 focus:ring-blue-300"
                 onClick={onToggleVideo}
             >
-                {isVideoOnHold ? <VideocamIcon fontSize="large" /> : <VideocamOffIcon fontSize="large" />}
+                {isVideoOnHold ? <VideocamOffIcon fontSize="large" /> : <VideocamIcon fontSize="large" />}
             </button>
-            <button className="callButtons text-red-700 border-red-700 hover:bg-red-700
-        focus:ring-4 focus:ring-red-700" onClick={onEndCall}>
+            <button className="callButtons text-white  bg-red-600 hover:text-red-700 hover:bg-white
+        focus:ring-4 focus:ring-white" onClick={onEndCall}>
                 <CallEndIcon fontSize="large" />
             </button>
         </div>

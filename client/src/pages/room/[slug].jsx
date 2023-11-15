@@ -1,6 +1,5 @@
 import { useSocket } from '@/context/SocketProvider';
 import React, { useCallback, useEffect, useState } from 'react'
-import ReactPlayer from 'react-player';
 import peer from '@/service/peer';
 import CallIcon from '@mui/icons-material/Call';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
@@ -198,16 +197,16 @@ const RoomPage = () => {
     }, [myStream, remoteSocketId, socket]);
 
     return (
-        <div className='flex flex-col items-center justify-center h-screen overflow-hidden'>
-            <h1 className='absolute top-0 left-0 text-5xl font-semibold
-            text-center font-josefin italic mt-5 ml-5 mmd:text-xl mxs:text-sm'>Video
+        <div className='flex flex-col items-center justify-center w-screen h-screen overflow-hidden'>
+            <h1 className='absolute top-0 left-0 text-5xl
+            text-center font-josefin tracking-tighter mt-5 ml-5 mmd:text-xl mxs:text-sm'>Video
                 <VideoCallIcon sx={{ fontSize: 50, color: 'rgb(30,220,30)' }} />
                 Peers
             </h1>
-            <h4 className='font-bold text-xl md:text-2xl mb-4 
-                mmd:text-sm mt-5'>
-                    {remoteSocketId ? "Connected With Remote User!" : "No One In Room"}
-                </h4>
+            <h4 className='font-bold text-xl md:text-2xl 
+                mmd:text-sm mt-5 mb-4 msm:max-w-[100px] text-center'>
+                {remoteSocketId ? "Connected With Remote User!" : "No One In Room"}
+            </h4>
             {(remoteStream && remoteSocketId && isSendButtonVisible) &&
                 <button className='bg-green-500 hover:bg-green-600' onClick={sendStreams}>
                     Send Stream
@@ -215,15 +214,14 @@ const RoomPage = () => {
             }
             {(remoteSocketId && callButton) &&
                 (
-                    <button className='text-xl bg-green-500 hover:bg-green-600 rounded-3xl animate-pulse'
+                    <button className='text-xl bg-green-500 hover:bg-green-600 rounded-3xl'
                         onClick={handleCallUser}
                         style={{ display: !remoteStream ? 'block' : 'none' }}>
-                        Call <CallIcon fontSize='medium' />
+                        Call <CallIcon fontSize='medium' className=' animate-pulse scale-125' />
                     </button>
                 )
             }
-            <div className="flex flex-col w-full items-center justify-center mt-4">
-
+            <div className="flex flex-col w-full items-center justify-center overflow-hidden">
                 {
                     myStream &&
                     <VideoPlayer stream={myStream} name={"My Stream"} isAudioMute={isAudioMute} />
@@ -233,7 +231,7 @@ const RoomPage = () => {
                     <VideoPlayer stream={remoteStream} name={"Remote Stream"} isAudioMute={isAudioMute} />
                 }
             </div>
-            {myStream &&
+            {myStream && remoteStream &&
                 (
                     <CallHandleButtons
                         isAudioMute={isAudioMute}
@@ -242,8 +240,10 @@ const RoomPage = () => {
                         onToggleVideo={handleToggleVideo}
                         onEndCall={handleEndCall}
                     />
-                )}
+                )
+            }
         </div>
+
     )
 }
 

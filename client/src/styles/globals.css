@@ -4,12 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
+
+body{
+    overflow: hidden;
+}
+
 label{
     color: #333;
     margin-bottom: 0.5rem;
     font-size: 1.125rem;
     line-height: 1.75rem;
     font-weight: 500;
+    font-family: 'Poppins', sans-serif;
 }
 
 input{
@@ -34,6 +40,7 @@ button{
     padding: 0.5rem 1rem 0.5rem 1rem;
     border-radius: 0.25rem;
     transition: background-color 250ms ease-in-out;
+    font-family: "Poppins", sans-serif;
 
     &:focus{
         outline: 2px solid transparent;
@@ -42,7 +49,6 @@ button{
 }
 
 .callButtons{
-    border-width: 1px;
     font-weight: 500;
     border-radius: 9999px;
     font-size: 0.875rem;
@@ -51,17 +57,10 @@ button{
     text-align: center;
     display: inline-flex;
     align-items: center;
-
-    &:hover{
-        color: white;
-    }
-
-    &:focus{
-        outline: 2px solid transparent;
-        outline-offset: 2px;
-    }
 }
 
 video{
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
