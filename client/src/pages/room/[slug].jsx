@@ -199,7 +199,7 @@ const RoomPage = () => {
 
     const router = useRouter();
 
-    const {slug} = router.query;
+    const { slug } = router.query;
 
     return (
         <div className='flex flex-col items-center justify-center w-screen h-screen overflow-hidden'>
