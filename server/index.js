@@ -1,9 +1,21 @@
 const { Server } = require('socket.io');
+const express = require('express');
+const cors = require('cors');
+const http = require('http');
 
 const io = new Server(8080, {
     cors: true
 });
 
+
+const app = express();
+const server = http.createServer(app);
+
+app.use(cors());
+
+app.get("/" , (req, res) => {
+    res.send("Hello World");
+});
 
 const emailToSocket = new Map();
 const socketToEmail = new Map();
@@ -48,3 +60,5 @@ io.on("connection", (socket) => {
         io.to(to).emit("call:initiated", { from: socket.id });
     });
 })
+
+server.listen(process.env.PORT || 8081, () => console.log(`Server has started.`));
