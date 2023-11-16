@@ -231,7 +231,7 @@ const RoomPage = () => {
                     <VideoPlayer stream={remoteStream} name={"Remote Stream"} isAudioMute={isAudioMute} />
                 }
             </div>
-            {myStream && remoteStream &&
+            {myStream && remoteStream && !isSendButtonVisible &&
                 (
                     <CallHandleButtons
                         isAudioMute={isAudioMute}
