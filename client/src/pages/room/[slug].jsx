@@ -1,4 +1,5 @@
 import { useSocket } from '@/context/SocketProvider';
+import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react'
 import peer from '@/service/peer';
 import CallIcon from '@mui/icons-material/Call';
@@ -196,8 +197,13 @@ const RoomPage = () => {
         setRemoteSocketId(null);
     }, [myStream, remoteSocketId, socket]);
 
+    const router = useRouter();
+
+    const {slug} = router.query;
+
     return (
         <div className='flex flex-col items-center justify-center w-screen h-screen overflow-hidden'>
+            <title>Room No. {slug}</title>
             <h1 className='absolute top-0 left-0 text-5xl
             text-center font-josefin tracking-tighter mt-5 ml-5 mmd:text-xl mxs:text-sm'>Video
                 <VideoCallIcon sx={{ fontSize: 50, color: 'rgb(30,220,30)' }} />
