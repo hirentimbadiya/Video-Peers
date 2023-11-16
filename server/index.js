@@ -12,7 +12,12 @@ const io = new Server(server, {
     cors: true
 });
 
-app.use(cors());
+app.use(cors({
+    origin: "https://video-peers-backend.vercel.app/",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+}));
+
 
 app.get("/", (req, res) => {
     res.send("Hello World");
