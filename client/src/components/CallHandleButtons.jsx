@@ -8,8 +8,8 @@ import CallEndIcon from '@mui/icons-material/CallEnd';
 const CallHandleButtons = ({ isAudioMute, isVideoOnHold, onToggleAudio, onToggleVideo, onEndCall }) => (
     <div className='absolute bottom-0 flex w-full space-x-4 h-[80px] items-center justify-center rounded-md'>
         <div className=' bg-[#2c3e508b] rounded-md flex px-4 py-2 justify-center gap-10'>
-            <button className="callButtons text-white border-white bg-[#2C3E50] hover:bg-white hover:text-[#2C3E50]
-        focust:ring-4 focus:ring-gray-300" onClick={onToggleAudio}>
+            <button className="callButtons text-white bg-blue-700 hover:bg-white hover:text-blue-700
+        focus:ring-4 focus:ring-blue-300" onClick={onToggleAudio}>
                 {isAudioMute ? <MicOffIcon fontSize="large" /> : <KeyboardVoiceIcon fontSize="large" />}
             </button>
             <button className="callButtons text-white bg-blue-700 hover:bg-white hover:text-blue-700
