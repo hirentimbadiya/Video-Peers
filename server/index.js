@@ -2,6 +2,9 @@ const { Server } = require('socket.io');
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const io = new Server(8080, {
     cors: true
@@ -13,7 +16,7 @@ const server = http.createServer(app);
 
 app.use(cors());
 
-app.get("/" , (req, res) => {
+app.get("/", (req, res) => {
     res.send("Hello World");
 });
 
@@ -61,4 +64,4 @@ io.on("connection", (socket) => {
     });
 })
 
-server.listen(process.env.PORT || 8081, () => console.log(`Server has started.`));
+server.listen(process.env.PORT, () => console.log(`Server has started.`));
