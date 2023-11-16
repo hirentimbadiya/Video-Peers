@@ -62,4 +62,4 @@ io.on("connection", (socket) => {
     });
 })
 
-server.listen(process.env.PORT, () => console.log(`Server has started.`));
+server.listen(process.env.PORT, () => console.log(`Server Is Up and Running.`));
