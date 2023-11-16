@@ -13,7 +13,7 @@ const io = new Server(server, {
 });
 
 app.use(cors({
-    origin: "https://video-peers-backend.vercel.app/",
+    origin: "localhost:8080",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }));
