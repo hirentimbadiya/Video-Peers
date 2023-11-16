@@ -12,12 +12,7 @@ const io = new Server(server, {
     cors: true
 });
 
-app.use(cors({
-    origin: "localhost:8080",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
-}));
-
+app.use(cors());
 
 app.get("/", (req, res) => {
     res.send("Hello World");
@@ -67,4 +62,4 @@ io.on("connection", (socket) => {
     });
 })
 
-server.listen(process.env.PORT, () => console.log(`Server Is Up and Running.`));
+server.listen(process.env.PORT, () => console.log(`Server has started.`));
