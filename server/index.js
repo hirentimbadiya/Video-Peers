@@ -6,13 +6,11 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const io = new Server(8080, {
-    cors: true
-});
-
-
 const app = express();
 const server = http.createServer(app);
+const io = new Server(server, {
+    cors: true
+});
 
 app.use(cors());
 
