@@ -26,9 +26,7 @@ const RoomPage = () => {
         setRemoteSocketId(from);
         //! console.log(`incoming call from ${from} with offer ${offer}`);
         const stream = await navigator.mediaDevices.getUserMedia({
-            audio: {
-                echoCancellation: true,
-            },
+            audio: true,
             video: true
         });
         setMyStream(stream);
@@ -148,10 +146,6 @@ const RoomPage = () => {
             video: true
         });
 
-        const audioSender = peer.peer.getSenders().find(sender => sender.track && sender.track.kind === 'audio');
-        if (audioSender) {
-            audioSender.track.enabled = !audioSender.track.enabled;
-        }
         if (isAudioMute) {
             const audioTracks = stream.getAudioTracks();
             audioTracks.forEach(track => track.enabled = false);
