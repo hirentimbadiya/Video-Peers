@@ -38,10 +38,6 @@ class PeerService {
     toggleAudio = () => {
         const audioTracks = this.peer.getSenders().find(sender => sender.track.kind === 'audio').track;
         audioTracks.enabled = !audioTracks.enabled;
-
-        // Mute the local audio track
-        const localAudioTrack = this.peer.getLocalStreams()[0].getAudioTracks()[0];
-        localAudioTrack.enabled = !localAudioTrack.enabled;
     };
 
     toggleVideo = () => {
