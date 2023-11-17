@@ -5,6 +5,12 @@
 This is a real time video chat application built using WebRTC, Socket.io, Node.js, Express.js, and Next.js. It allows users to create a room and share the room ID with other users to join the room for a peer-to-peer video call.
 
 
+## Deployment Link : https://video-peers.vercel.app/
+
+## How To Use : 
+First of all join any room lets say 7 for example with your email and room no. as 7 and then notify other person to enter in room no. 7, now you will get call button on screen this will allow to call other person and then call will be initiated and other person will be having a button called Send Streams and as other person clicks Send Streams Button then video call will be initiated.
+
+
 ## Key Features
 
 - [x] Create and join video chat rooms using room IDs
@@ -15,14 +21,7 @@ This is a real time video chat application built using WebRTC, Socket.io, Node.j
 - [x] Responsive Design
 - [x] Built with Next.js, Node.js, Express, Socket.io
 
-## Technologies used / Prerequisites Of The Project
 
-- [Next.js](https://nextjs.org/) - React framework
-- [WebRTC](https://webrtc.org/) - Real-time communication 
-- [Socket.io](https://socket.io/) - Bidirectional communication 
-- [Node.js](https://nodejs.org/) - Backend runtime
-- [Express](https://expressjs.com/) - Node.js framework
-- [Tailwind CSS](https://tailwindcss.com/) - Styling
 
 
 ## Installation
@@ -59,6 +58,16 @@ npm install
    cd server #in Video-Peers/server
    npm run dev
    ```
+
+## Technologies used / Prerequisites Of The Project
+
+- [Next.js](https://nextjs.org/) - React framework
+- [WebRTC](https://webrtc.org/) - Real-time communication 
+- [Socket.io](https://socket.io/) - Bidirectional communication 
+- [Node.js](https://nodejs.org/) - Backend runtime
+- [Express](https://expressjs.com/) - Node.js framework
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+   
 
 ## Working Demo
 https://github.com/hirentimbadiya/Video-Peers/assets/86219935/7ce8caf9-0881-4abe-b633-79d3bb0a87ef
